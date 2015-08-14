@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>YouTuber</title>
+  </head>
+
+  <body>
+    
+    <div class="section no-pad-bot" id="index-banner">
+      <div class="container">
+
+        <br><br>
+        <h1 class="header center teal-text">YouTuber</h1>
+            
+        
+        <div class="row center">
+          <h5 class="header col s12 light">A webapp to download your music from YouTube with all the metadata</h5>
+        </div>
+        
+        <br><br>
+
+      </div>
+
+      <div class="container">
+        <div class="row">
+            <form id ="myform" action = "confirm.php" class="col s12" method="post">
+
+              <div class="row">
+
+                <div class="input-field col s12 l6 offset-l3">
+                  <input spellcheck="false" autocomplete="off" autocorrect="off" onchange="validateInput();" onkeyup="validateInput();" onpaste="validateInput();" oninput="validateInput();" id="videourl" name="videourl" type="text" class="validate">
+                  <label for="videourl">YouTube URL</label>
+                </div>
+
+              </div>
+                  <br><br>
+              <div class="row center">
+                <button type="submit" id="submit-button" class="btn waves-effect waves-light teal lighten-1 ">Download <i class="mdi-content-send right"></i></button>
+
+              </div>
+
+            </form>
+          </div>
+      </div>
+
+    </div>
+
+
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+
+          $("#submit-button").hide();
+          document.getElementById("myform").reset();
+          $('#myform input').attr('style', '-webkit-box-shadow: inset 0 0 0 1000px #ffffff !important');
+      });
+
+      function validateInput() //(name,email,fbid)
+      { 
+
+        videourl = $("#videourl").val();
+        var w = false;
+
+        var YTurl = /^https:\/\/(?:www\.)?(m.)?youtube.com\/watch\?(?=[^?]*v=\w+)(?:[^\s?]+)?$/
+        w = YTurl.test(videourl);
+
+        if( w )
+        {
+          $("#submit-button").fadeIn(0);
+        }
+        else
+        {
+          $("#submit-button").fadeOut();
+        }
+      }
+
+      $('html').bind('keypress', function(e)
+      {
+       if(e.keyCode == 13)
+       {
+          return false;
+       }
+      });
+    </script>
+
+  </body>
+</html>
