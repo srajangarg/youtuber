@@ -1,15 +1,7 @@
-# -*- coding: utf-8 -*- 
-
-# this script takes url of video as input
-# writes to 'info.txt'
-# song/title name
-# artist name
-# 3 lines of imgurls
-# audio url
-
-import requests, os, pafy, re, sys, urllib2
+import requests, os, pafy, re, sys
 from urlparse import urlparse
 from bs4 import BeautifulSoup
+from urllib2 import quote
 
 def removePercent(string):
 
@@ -108,7 +100,7 @@ def getImageURLs(songName, artistName):
 
 	searchTerm = songName +" "+ artistName + " album art"
 	searchTerm = simplify(searchTerm)
-	searchTerm = urllib2.quote(searchTerm)
+	searchTerm = unicode(quote(searchTerm.encode('utf-8')))
 	s = requests.session()
 	searchURL = "https://www.google.co.in/search?q="+searchTerm+"&espv=2&biw=1536&bih=758&tbm=isch&source=lnt&tbs=isz:ex,iszw:500,iszh:500"
 
@@ -169,7 +161,7 @@ def getAlbum(songName, artistName):
 
 	return albumname
 # read the URL sent by PHP
-vidURL = sys.argv[1]
+vidURL = sys.argv[1].strip()
 try:
 	currVid = pafy.new(vidURL)
 except:
@@ -181,15 +173,15 @@ if(currVid.length > 480):
 	exit()
 
 vidURL = currVid.getbestaudio().url
-title = currVid.title.encode('utf-8').strip()
+title = unicode(currVid.title.strip())
 songName, artistName = getNames(title)
 imgURLs = getImageURLs(songName, artistName)
 albumName = getAlbum(songName, artistName)
 
 print vidURL
-print songName
-print artistName
-print albumName
+print songName.encode('utf-8')
+print artistName.encode('utf-8')
+print albumName.encode('utf-8')
 print imgURLs[0]
 print imgURLs[1]
 print imgURLs[2]

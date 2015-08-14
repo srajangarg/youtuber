@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*- 
-
 import eyed3, requests, subprocess, os, sys
 
 def validateFileName(string):
@@ -29,13 +27,13 @@ def download(url,name,filetype):
 			handle.write(block)
 	return
 
-audioURL = sys.argv[1].strip('\n')
+audioURL = sys.argv[1]
 data = sys.argv[2:6]
 
 fileName = validateFileName(data[0].strip())	# this is the name given by user
 download(audioURL, fileName, ".m4a")	# downlaod audio
 	
-subprocess.call(["ffmpeg", "-i", '"download/'+fileName+'.m4a"', "-ab", "256k", '"download/'+fileName+'.mp3"']) # convert m4a to mp3
+subprocess.call(["ffmpeg/ffmpeg", "-i", '"download/'+fileName+'.m4a"', "-ab", "256k", '"download/'+fileName+'.mp3"']) # convert m4a to mp3
 #os.remove(fileName+".m4a")	# delete original m4a file
 
 audiofile = eyed3.load("download/"+fileName +".mp3") # tagging starts
@@ -44,9 +42,9 @@ if audiofile.tag is None:
     audiofile.tag = eyed3.id3.Tag()
     audiofile.tag.file_info = eyed3.id3.FileInfo("download/"+fileName +".mp3")
 
-audiofile.tag.artist = unicode(data[1].strip())				# artist
-audiofile.tag.title = unicode(data[0].strip())				# title
-audiofile.tag.album = unicode(data[2].strip())				# album
+audiofile.tag.artist = data[1].strip()				# artist
+audiofile.tag.title = data[0].strip()				# title
+audiofile.tag.album = data[2].strip()				# album
 imagedata = requests.get(data[3]).content
 
 imgformat = data[3].split(".")[-1].lower()
@@ -56,4 +54,4 @@ else:
 	audiofile.tag.images.set (3, imagedata, "image / jpeg")
 audiofile.tag.save()
 
-print fileName
+print fileName.encode('utf-8')

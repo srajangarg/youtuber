@@ -49,9 +49,9 @@
 				$imgurl = escape($_GET["imgurl"]);
 
 				$data = array();
-				$cmd = 'python python/downloadandtag.py "'.$audiourl.'" "'.$songname.'" "'.$artistname.'" "'.$albumname.'" "'.$imgurl.'"';
-				echo $cmd;
-				//exec($cmd, $data);
+				$cmd = 'python python/downloadandtag.py "'.$audiourl.'" "'.$songname.'" "'.$artistname.'" "'.$albumname.'" "'.$imgurl.'" 2>&1';
+
+				system($cmd);
 
 				echo '
 						<br><br><br><br>

@@ -39,8 +39,7 @@
 				// do the coputation and return
 			$url = $_GET["url"];
 			$data = array();
-
-			exec("python python/getinfo.py $url", $data);
+			exec("python python/getinfo.py ".$url, $data);
 			// echo will echo on the "loading page", so 1 echo to be used //ithink
 
 			    if(strcmp($data[0],"invalid") == 0)
@@ -73,9 +72,9 @@
 			    	$song = $data[1];
 			    	$artist = $data[2];
 			    	$album = $data[3];
-			    	$url1 = utf8_encode($data[4]);
-			    	$url2 = utf8_encode($data[5]);
-			    	$url3 = utf8_encode($data[6]);
+			    	$url1 = $data[4];
+			    	$url2 = $data[5];
+			    	$url3 = $data[6];
 
 			    	echo '
 						<h3 class="header center teal-text">Confirm?</h3>
