@@ -7,7 +7,7 @@
 # 3 lines of imgurls
 # audio url
 
-import requests, os, pafy, re, sys
+import requests, os, pafy, re, sys, urllib2
 from urlparse import urlparse
 from bs4 import BeautifulSoup
 
@@ -108,15 +108,13 @@ def getImageURLs(songName, artistName):
 
 	searchTerm = songName +" "+ artistName + " album art"
 	searchTerm = simplify(searchTerm)
-	searchTerm = searchTerm.replace("#","")
-	searchTerm = searchTerm.replace("&"," ")
-	searchTerm = searchTerm.replace(" ","+")
+	searchTerm = urllib2.quote(searchTerm)
 	s = requests.session()
 	searchURL = "https://www.google.co.in/search?q="+searchTerm+"&espv=2&biw=1536&bih=758&tbm=isch&source=lnt&tbs=isz:ex,iszw:500,iszh:500"
 
 	headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:20.0) Gecko/20100101 Firefox/20.0'}
 	page = s.get(searchURL, headers=headers)
-	soup=BeautifulSoup(page.content, "html.parser")
+	soup = BeautifulSoup(page.content, "html.parser")
 	box = soup.find(id = "rg_s")
 
 	i = 1

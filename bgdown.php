@@ -36,15 +36,20 @@
 			}
 			else
 			{
+				function escape($stringx)
+				{
+					str_replace("'","\'",$stringx);
+					return $stringx;
+				}
 				// download the file
-				$audiourl = $_GET["audiourl"];
-				$songname = $_GET["song"];
-				$artistname = $_GET["artist"];
-				$albumname = $_GET["album"];
-				$imgurl = $_GET["imgurl"];
+				$audiourl = escape($_GET["audiourl"]);
+				$songname = escape($_GET["song"]);
+				$artistname = escape($_GET["artist"]);
+				$albumname = escape($_GET["album"]);
+				$imgurl = escape($_GET["imgurl"]);
 
 				$data = array();
-				$cmd = "python python/downloadandtag.py '".addslashes($audiourl)."' '".addslashes($songname)."' '".addslashes($artistname)."' '".addslashes($albumname)."' '".addslashes($imgurl)."'";
+				$cmd = "python python/downloadandtag.py '".$audiourl."' '".$songname."' '".$artistname."' '".$albumname."' '".$imgurl."'";
 				echo $cmd;
 				//exec($cmd, $data);
 

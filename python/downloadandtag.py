@@ -34,6 +34,9 @@ data = sys.argv[2:6]
 
 fileName = validateFileName(data[0].strip())	# this is the name given by user
 
+print "----------------------------------"
+print audioURL
+print "----------------------------------"
 download(audioURL, fileName, ".m4a")	# downlaod audio
 	
 subprocess.call(["ffmpeg", "-i", "download/"+fileName+".m4a", "-ab", "256k", "download/"+fileName+".mp3"]) # convert m4a to mp3
