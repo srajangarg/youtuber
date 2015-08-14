@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
 <html>
 
 	<head>
@@ -38,7 +38,7 @@
 			{
 				function escape($stringx)
 				{
-					str_replace("'","\'",$stringx);
+					str_replace('"','\"',$stringx);
 					return $stringx;
 				}
 				// download the file
@@ -49,7 +49,7 @@
 				$imgurl = escape($_GET["imgurl"]);
 
 				$data = array();
-				$cmd = "python python/downloadandtag.py '".$audiourl."' '".$songname."' '".$artistname."' '".$albumname."' '".$imgurl."'";
+				$cmd = 'python python/downloadandtag.py "'.$audiourl.'" "'.$songname.'" "'.$artistname.'" "'.$albumname.'" "'.$imgurl.'"';
 				echo $cmd;
 				//exec($cmd, $data);
 
