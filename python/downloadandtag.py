@@ -15,7 +15,7 @@ def validateFileName(string):
 def download(url,name,filetype):
 
 	s = requests.session()
-	with open( "download/" +name + filetype, 'wb') as handle:
+	with open("download/" +name + filetype, 'wb') as handle:
 		response = s.get(url, stream=True)
 			
 		if not response.ok:
@@ -30,11 +30,15 @@ def download(url,name,filetype):
 audioURL = sys.argv[1]
 data = sys.argv[2:6]
 
+data[0] = unicode(data[0])
+data[1] = unicode(data[1])
+data[2] = unicode(data[2])
+
 fileName = validateFileName(data[0].strip())	# this is the name given by user
 download(audioURL, fileName, ".m4a")	# downlaod audio
-	
-subprocess.call(["ffmpeg/ffmpeg", "-i", '"download/'+fileName+'.m4a"', "-ab", "256k", '"download/'+fileName+'.mp3"']) # convert m4a to mp3
-#os.remove(fileName+".m4a")	# delete original m4a file
+
+cmd = "./ffmpeg -i 'download/"+fileName+".m4a' -ab 256k 'download/"+fileName+".mp3'"
+subprocess.call(cmd, shell=True) # convert m4a to mp3
 
 audiofile = eyed3.load("download/"+fileName +".mp3") # tagging starts
 
