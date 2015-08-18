@@ -36,22 +36,25 @@
 			}
 			else
 			{
-				function escape($stringx)
-				{
-					str_replace('"','\"',$stringx);
-					return $stringx;
-				}
+				
 				// download the file
-				$audiourl = escape($_GET["audiourl"]);
-				$songname = escape($_GET["song"]);
-				$artistname = escape($_GET["artist"]);
-				$albumname = escape($_GET["album"]);
-				$imgurl = escape($_GET["imgurl"]);
+				$audiourl = $_GET["audiourl"];
+				$songname = $_GET["song"];
+				$artistname = $_GET["artist"];
+				$albumname = $_GET["album"];
+				$imgurl = $_GET["imgurl"];
+
+				$myfile = fopen("python/confirm.txt", "w");
+				fwrite($myfile,$audiourl."\n");
+				fwrite($myfile,$songname."\n");
+				fwrite($myfile,$artistname. "\n");
+				fwrite($myfile,$albumname. "\n");
+				fwrite($myfile,$imgurl. "\n");
+				fclose($myfile);
 
 				$data = array();
-				$cmd = 'python python/downloadandtag.py "'.$audiourl.'" "'.$songname.'" "'.$artistname.'" "'.$albumname.'" "'.$imgurl.'"2>&1';
-				exec($cmd, $data);
-
+				exec('python python/downloadandtag.py', $data);
+				//system($cmd);
 				echo '
 						<br><br><br><br>
 						  <h1 class="header center teal-text">
@@ -65,7 +68,7 @@
 						    Click <a style="color:teal" href="index.html">here</a> to download more!
 						  </h5>
 						</div>
-						<iframe src="send.php?q="'.$data[0].'" style="display:none;" />
+					<iframe src="send.php?q='.urlencode($data[0]).'" style="display:none;" />
 				';	
 				// <meta http-equiv="refresh" content="1;url=send.php?q='.$data[0].'">
 
