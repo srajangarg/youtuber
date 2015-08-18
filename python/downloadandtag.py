@@ -27,11 +27,11 @@ def download(url,name,filetype):
 			handle.write(block)
 	return
 
-data = open("python/confirm.txt").read().splitlines()
+audioURL = sys.argv[1]
+data = sys.argv[2:6]
 
-fileName = validateFileName(data[1])	# this is the name given by user
-
-download(data[0], fileName, ".m4a")	# downlaod audio
+fileName = validateFileName(data[0].strip())	# this is the name given by user
+download(audioURL, fileName, ".m4a")	# downlaod audio
 
 cmd = "./ffmpeg -i 'download/"+fileName+".m4a' -ab 256k 'download/"+fileName+".mp3'"
 subprocess.call(cmd, shell=True) # convert m4a to mp3
@@ -39,17 +39,18 @@ subprocess.call(cmd, shell=True) # convert m4a to mp3
 audiofile = eyed3.load("download/"+fileName +".mp3") # tagging starts
 audiofile.initTag(eyed3.id3.ID3_V2_3)
 
-audiofile.tag.artist = data[2].decode('utf-8')					# artist
-audiofile.tag.title = data[1].decode('utf-8')				# title
-audiofile.tag.album = data[3].decode('utf-8')		# album
+audiofile.tag.artist = unicode(data[1].strip())		# artist
+audiofile.tag.title = unicode(data[0].strip())				# title
+audiofile.tag.album = unicode(data[2].strip())				# album
+try:
+	imagedata = requests.get(data[3]).content
 
-imagedata = requests.get(data[4].decode('ascii')).content
-
-imgformat = data[4].split(".")[-1].lower()
-if imgformat == "png":
-	audiofile.tag.images.set (3, imagedata, "image / png")
-else:
-	audiofile.tag.images.set (3, imagedata, "image / jpeg")
+	imgformat = data[3].split(".")[-1].lower()
+	if imgformat == "png":
+		audiofile.tag.images.set (3, imagedata, "image / png")
+	else:
+		audiofile.tag.images.set (3, imagedata, "image / jpeg")
+except:
+	pass
 audiofile.tag.save()
-
 print fileName
