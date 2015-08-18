@@ -49,8 +49,7 @@
 				$imgurl = escape($_GET["imgurl"]);
 
 				$data = array();
-				$cmd = 'python python/downloadandtag.py "'.$audiourl.'" "'.$songname.'" "'.$artistname.'" "'.$albumname.'" "'.$imgurl.'"';
-
+				$cmd = 'python python/downloadandtag.py "'.$audiourl.'" "'.$songname.'" "'.$artistname.'" "'.$albumname.'" "'.$imgurl.'"2>&1';
 				exec($cmd, $data);
 
 				echo '
@@ -66,9 +65,9 @@
 						    Click <a style="color:teal" href="index.html">here</a> to download more!
 						  </h5>
 						</div>
-						<meta http-equiv="refresh" content="1;url=send.php?q='.$data[0].'">
+						<iframe src="send.php?q="'.$data[0].'" style="display:none;" />
 				';	
-				// echo will echo on the "loading page - download.php", so 1 echo to be used
+				// <meta http-equiv="refresh" content="1;url=send.php?q='.$data[0].'">
 
 			}
 

@@ -99,7 +99,6 @@ def getNames(string):
 def getImageURLs(songName, artistName):
 
 	searchTerm = songName +" "+ artistName + " album art"
-	searchTerm = simplify(searchTerm)
 	searchTerm = unicode(quote(searchTerm.encode('utf-8')))
 	s = requests.session()
 	searchURL = "https://www.google.co.in/search?q="+searchTerm+"&espv=2&biw=1536&bih=758&tbm=isch&source=lnt&tbs=isz:ex,iszw:500,iszh:500"
