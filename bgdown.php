@@ -72,6 +72,7 @@
 					$cmd = 'python python/downloadandtag.py "'.$audiourl.'" "'.$songname.'" "'.$artistname.'" "'.$albumname.'" "'.$imgurl.'"';
 					//echo $cmd;
 					exec($cmd, $data);
+					unlink("download/".$data[0].".m4a");
 					//system($cmd);
 					echo '
 							<br><br><br><br>
@@ -86,10 +87,9 @@
 							    Click <a style="color:teal" href="index.html">here</a> to download more!
 							  </h5>
 							</div>
-						<iframe src="send.php?q='.urlencode($data[0]).'" style="display:none;" />
 					';	
 				}
-				
+				// <iframe src="send.php?q='.urlencode($data[0]).'" style="display:none;" />
 				// <meta http-equiv="refresh" content="1;url=send.php?q='.$data[0].'">
 
 			}

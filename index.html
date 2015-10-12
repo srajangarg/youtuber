@@ -70,7 +70,7 @@
         videourl = $("#videourl").val();
         var w = false;
 
-        var YTurl = /^https:\/\/(?:www\.)?(m.)?youtube.com\/watch\?(?=[^?]*v=\w+)(?:[^\s?]+)?$/
+        var YTurl = /^https:\/\/(?:www\.)?(m.)?youtube.com\/watch\?(?=[^?]*v=[\w-]+)(?:[^\s?]+)?$/
         w = YTurl.test(videourl);
 
         if( w )
