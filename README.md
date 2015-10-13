@@ -17,5 +17,14 @@ Simply run your PHP server in the main directory.
 
 index.html page:
 ![GitHub Logo](/images/index.png)
+Currently, the music video can only be 480 seconds long. If you want to change this, edit the file :
+```python
+# python/getinfo.py
+
+if(currVid.length > 480):
+	print "long"
+	exit()
+```
 
 On entering the URL:
+![GitHub Logo](/images/confirm.png)
