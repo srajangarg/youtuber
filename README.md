@@ -27,8 +27,15 @@ This inspired me to try and automate this whole process, by which I could get co
 * The song is downloaded using the pafy library, in m4a format. ffmpeg converts the file to mp3. After this, eyed3 tags the mp3 file for me.
 
 # Usage
+Run the following commands to give su powers to www-data:
 
-Simply run your PHP server in the main directory.
+```bash
+$ sudo usermod -aG www-data <rootusernamehere>
+$ addgroup www-data
+$ sudo chown -R www-data:www-data /var/www/path/to/youtuber
+$ sudo chmod -R 775 /var/www/path/to/youtuber
+```
+After this, simply run your PHP server.
 
 index.html page:
 ![GitHub Logo](/images/index.png)
