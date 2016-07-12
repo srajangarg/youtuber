@@ -33,7 +33,7 @@ data = sys.argv[2:6]
 fileName = validateFileName(data[0].strip())	# this is the name given by user
 download(audioURL, fileName, ".m4a")	# downlaod audio
 
-cmd = "./ffmpeg -i 'download/"+fileName+".m4a' -ab 256k 'download/"+fileName+".mp3'"
+cmd = "ffmpeg -i 'download/"+fileName+".m4a' -ab 256k 'download/"+fileName+".mp3'"
 subprocess.call(cmd, shell=True) # convert m4a to mp3
 
 audiofile = eyed3.load("download/"+fileName +".mp3") # tagging starts

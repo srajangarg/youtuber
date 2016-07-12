@@ -6,11 +6,12 @@ This version of the website is for local usage.
 # Dependencies
 
 * Python 2.7
-* beautifulsoup4 ( $ pip install beautifulsoup4 )
-* pafy           ( $ pip install pafy )
-* requests       ( $ pip install requests )
-* eyed3 ( $ pip install eyeD3 )
-* Any PHP based server (eg. Apache2)
+* beautifulsoup4
+* pafy
+* requests
+* eyed3
+* ffmpeg
+* Any server (Apache2/Nginx) w PHP enabled
 
 # Motivation
 I usually downloaded all my music straight from YouTube, using free YouTube MP3 downloader sites. These sites got the job done (sort of). However, these sites just gave the raw mp3 file without any metadata. This led to incomplete music libraries on my phone. Also, the library just looked ugly because of the missing album art.
@@ -35,7 +36,7 @@ $ addgroup www-data
 $ sudo chown -R www-data:www-data /var/www/path/to/youtuber
 $ sudo chmod -R 775 /var/www/path/to/youtuber
 ```
-After this, simply run your PHP server.
+After this, simply run your PHP server
 
 index.html page:
 ![GitHub Logo](/images/index.png)
